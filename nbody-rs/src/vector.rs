@@ -17,10 +17,10 @@ impl<T, const N: usize> Deref for Vector<T, N> {
 }
 
 
-impl<'a, T, const S: usize> Metric<T> for Vector<T, S>
+impl<T, const S: usize> Metric<T> for Vector<T, S>
     where
-        T: Pow<usize, Output=T> + Pow<f32, Output=T> + Sum + 'a,
-        &'a T: Sub<&'a T, Output=T>
+        T: Pow<usize, Output=T> + Pow<f64, Output=T> + Sum,
+        for<'a> &'a T: Sub<&'a T, Output=T>
 {
     fn distance(&self, other: &Self) -> T {
         self.distance_squared(&other).pow(0.5)
